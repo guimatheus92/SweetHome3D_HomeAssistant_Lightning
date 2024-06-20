@@ -27,7 +27,7 @@ As we can see, for 3 lights, there are 2^3 possible combinations. If we have 10 
 - **Scalable Solution**: Efficiently handle multiple lights, including lights that are under Furniture Groups in Sweet Home 3D, generating combinations automatically without manual intervention.
 - **Loading Bar**: Visual loading bar to track the progress of image generation, ensuring users are informed about the process and its completion status.
 
-# How to use:
+# How to activate plugin:
 1. Download the latest release in `.jar` and copy to Sweet Home 3D "plugins" folder (see notes below) or download the latest release in `.sh3p` and execute that file.
 
 > 	If double-clicking on a `.sh3p` file doesn't launch Sweet Home 3D (most chances under Linux), you can also install a plug-in with the following command in a Terminal window (where SweetHome3D is the name of the executable file provided with Sweet Home 3D installers): `/path/to/SweetHome3D /path/to/plugin.sh3p`
@@ -42,3 +42,10 @@ As we can see, for 3 lights, there are 2^3 possible combinations. If we have 10 
 - **Home Assistant path**: This path is where the images will be located in Home Assistant
 5. Move the images from Path to `/config/www/planes`
 7. Create a card of type `picture-elements` and paste the generated `.yaml` from Path.
+
+# How to copy `.jar` into Sweet Home 3D
+
+To use it, copy this archive in the plug-ins folder of Sweet Home 3D, which depends on your system as follows:
+- under Windows, this folder is C:\Documents and Settings\user\Application Data\eTeks\Sweet Home 3D\plugins,
+- under Mac OS X, it's the subfolder Library/Application Support/eTeks/Sweet Home 3D/plugins of your user folder,
+- under Linux and other Unix, it's the subfolder .eteks/sweethome3d/plugins of your user folder.

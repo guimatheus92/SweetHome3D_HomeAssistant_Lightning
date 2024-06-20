@@ -30,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 public class ImagePlugin extends Plugin {
 
@@ -58,6 +59,13 @@ public class ImagePlugin extends Plugin {
 
         public void execute() {
             this.home = ImagePlugin.this.getHome();
+            
+            // Check if no project is open
+            if (this.home == null || this.home.getFurniture().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No project is open. Please open a project before proceeding.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Exit the method to cancel the process
+            }
+            
             HomeAssistantLightningOptions options = this.createInputPanel();
             if (options != null) {
                 List<HomePieceOfFurniture> lights = new ArrayList<>();
@@ -96,7 +104,7 @@ public class ImagePlugin extends Plugin {
             JTextField pathField = new JTextField(5);
             JTextField widthField = new JTextField(5);
             JTextField heightField = new JTextField(5);
-            JTextField qualityField = new JTextField(5);
+            JComboBox<String> qualityComboBox = new JComboBox<>(new String[]{"high", "low"});
             JTextField haPathField = new JTextField(5);
             JPanel inputPanel = new JPanel();
             inputPanel.add(new JLabel("Output path:"));
@@ -108,18 +116,19 @@ public class ImagePlugin extends Plugin {
             inputPanel.add(new JLabel("Image height:"));
             inputPanel.add(heightField);
             inputPanel.add(Box.createVerticalStrut(15));
-            inputPanel.add(new JLabel("Quality (high or low):"));
-            inputPanel.add(qualityField);
+            inputPanel.add(new JLabel("Quality:"));
+            inputPanel.add(qualityComboBox);
             inputPanel.add(Box.createVerticalStrut(15));
             inputPanel.add(new JLabel("Home Assistant path:"));
             inputPanel.add(haPathField);
             int result = JOptionPane.showConfirmDialog(null, inputPanel, "Please fill the values", JOptionPane.OK_CANCEL_OPTION);
 
             if (result == JOptionPane.OK_OPTION) {
-                return new HomeAssistantLightningOptions(pathField.getText(), Integer.parseInt(widthField.getText()),
-                        Integer.parseInt(heightField.getText()),
-                        qualityField.getText().equalsIgnoreCase("high") ? Quality.HIGH : Quality.LOW,
-                        haPathField.getText());
+                return new HomeAssistantLightningOptions(pathField.getText(), 
+                                                         Integer.parseInt(widthField.getText()), 
+                                                         Integer.parseInt(heightField.getText()), 
+                                                         qualityComboBox.getSelectedItem().equals("high") ? Quality.HIGH : Quality.LOW, 
+                                                         haPathField.getText());
             } else {
                 return null;
             }
