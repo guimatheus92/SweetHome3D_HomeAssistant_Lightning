@@ -46,6 +46,6 @@ As we can see, for 3 lights, there are 2^3 possible combinations. If we have 10 
 # How to copy `.jar` into Sweet Home 3D
 
 To use it, copy this archive in the plug-ins folder of Sweet Home 3D, which depends on your system as follows:
-- under Windows, this folder is C:\Documents and Settings\user\Application Data\eTeks\Sweet Home 3D\plugins,
-- under Mac OS X, it's the subfolder Library/Application Support/eTeks/Sweet Home 3D/plugins of your user folder,
-- under Linux and other Unix, it's the subfolder .eteks/sweethome3d/plugins of your user folder.
+- under Windows, this folder is `C:\Documents and Settings\user\Application Data\eTeks\Sweet Home 3D\plugins`,
+- under Mac OS X, it's the subfolder `Library/Application Support/eTeks/Sweet Home 3D/plugins` of your user folder,
+- under Linux and other Unix, it's the subfolder `.eteks/sweethome3d/plugins` of your user folder.
