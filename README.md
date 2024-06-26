@@ -78,3 +78,6 @@ When that process is finished, it will then show the elapsed end time.
 > 	This `log.txt` file you won't use anywhere, is just for debugg purpose and test only.
 
 ![alt text](/media/images-generated.png)
+
+> 	You don't need to worry about time of day to print the image, just set the time on Sweet Home 3D and plugin will use the same time.
+Same for point of view on Sweet Home 3D, it will use the same when generating the image.

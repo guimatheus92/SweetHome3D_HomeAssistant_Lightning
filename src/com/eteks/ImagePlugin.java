@@ -68,8 +68,18 @@ public class ImagePlugin extends Plugin {
             List<HomeFurnitureGroup> groups = new ArrayList<>();
             this.getAllHomeLightsAndGroups(this.home.getFurniture(), allLights, groups);
 
+            // Count lights in groups
+            int lightsInGroupsCount = 0;
+            for (HomeFurnitureGroup group : groups) {
+                for (HomePieceOfFurniture light : group.getFurniture()) {
+                    if (light instanceof HomeLight) {
+                        lightsInGroupsCount++;
+                    }
+                }
+            }
+
             // Show an error message if the project has no lights
-            if (allLights.isEmpty()) {
+            if (allLights.isEmpty() && lightsInGroupsCount == 0) {
                 JOptionPane.showMessageDialog(null, "The project has no lights. Please add lights to the project before proceeding.", "Error", JOptionPane.ERROR_MESSAGE);
                 return; // Exit the method to cancel the process
             }
@@ -464,25 +474,10 @@ public class ImagePlugin extends Plugin {
                     String imageName = imageNameBuilder.toString();
                     System.out.println("Generating image: " + imageName);
 
-                    ArrayList<HomePieceOfFurniture> itemsToRemove = new ArrayList<>();
-
-                    int i;
-                    for (i = 0; i < this.home.getFurniture().size(); ++i) {
-                        if (this.home.getFurniture().get(i) instanceof HomeLight) {
-                            itemsToRemove.add((HomePieceOfFurniture) this.home.getFurniture().get(i));
-                        }
-                    }
-
-                    for (i = 0; i < currentLights.size(); ++i) {
-                        this.home.addPieceOfFurniture((HomePieceOfFurniture) currentLights.get(i));
-                    }
-
-                    for (i = 0; i < itemsToRemove.size(); ++i) {
-                        this.home.deletePieceOfFurniture((HomePieceOfFurniture) itemsToRemove.get(i));
-                    }
-
+                    // Generate image without modifying the home's structure
                     this.createImage(this.home, options, imageName);
 
+                    // Restore initial power values
                     for (HomeLight light : currentLights) {
                         Float initialPower = initialPowerValues.get(light);
                         if (initialPower != null) {
@@ -501,6 +496,7 @@ public class ImagePlugin extends Plugin {
                     }
                 }
 
+                // Restore initial visibility values
                 for (Map.Entry<HomePieceOfFurniture, Boolean> entry : initialVisibilityValues.entrySet()) {
                     entry.getKey().setVisible(entry.getValue());
                 }
